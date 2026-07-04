@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =================== Global =================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: #1f2937;
+  overflow-x: hidden;
+}
+
+/* =================== Landing Page =================== */
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.landing-hero-gradient {
+  background: linear-gradient(135deg, #0f3f1a 0%, #1f6d2e 25%, #2f9e44 50%, #1f6d2e 75%, #0f3f1a 100%);
+  background-size: 300% 300%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, #d4f1d8 0%, #ffffff 50%, #edf9ef 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-dark {
+  background: linear-gradient(135deg, #0f3f1a 0%, #2f9e44 50%, #1f6d2e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow button */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-glow:hover::before {
+  left: 100%;
+}
+
+.btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(47, 158, 68, 0.35);
+}
+
+/* Pulse dot */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #2f9e44;
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* Section divider */
+.section-divider {
+  background: linear-gradient(90deg, transparent, #d4f1d8, #2f9e44, #d4f1d8, transparent);
+  height: 1px;
+}
+
+/* Feature card hover */
+.feature-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(47, 158, 68, 0.12);
+}
+
+/* Step connector line */
+.step-connector {
+  background: linear-gradient(180deg, #2f9e44, #d4f1d8);
+}
+
+/* Testimonial card */
+.testimonial-card {
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.02);
+}
+
+/* Stats counter */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pattern overlay */
+.pattern-overlay {
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.08) 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+/* Scroll-triggered fade-in (used with framer-motion) */
+.fade-up-ready {
+  opacity: 0;
+  transform: translateY(30px);
+}

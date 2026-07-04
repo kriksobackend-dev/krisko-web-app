@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: krikso-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: krikso
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    container_name: krikso-backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  pg_data:
+

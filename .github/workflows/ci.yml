@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main", "develop"]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Lint
+        run: ruff check app tests
+      - name: Test
+        run: pytest -q
+
+  frontend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [user-app, admin-dashboard]
+    defaults:
+      run:
+        working-directory: frontend/${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install deps
+        run: npm ci
+      - name: Build
+        run: npm run build
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deployment hook
+        run: echo "Configure deployment target (e.g., Fly.io, Render, Railway, or Kubernetes) in repository secrets."
+

@@ -1,0 +1,76 @@
+# ========================
+# Version Control
+# ========================
+.git/
+.gitignore
+.github/
+
+# ========================
+# Node / Frontend
+# ========================
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+vite.config.ts.timestamp-*
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.*
+
+# ========================
+# IDE / Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ========================
+# Testing / Coverage
+# ========================
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+.nyc_output/
+
+# ========================
+# Docker (avoid recursive)
+# ========================
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# ========================
+# Docs / Misc
+# ========================
+README.md
+LICENSE
+*.md
+*.log
+*.bak
+*.tmp
+*.temp

@@ -1,0 +1,15 @@
+{
+  "name": "krikso-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "frontend/user-app",
+    "frontend/admin-dashboard"
+  ],
+  "scripts": {
+    "dev:user": "npm --workspace frontend/user-app run dev",
+    "dev:admin": "npm --workspace frontend/admin-dashboard run dev",
+    "build": "npm --workspace frontend/user-app run build && npm --workspace frontend/admin-dashboard run build"
+  }
+}
+
