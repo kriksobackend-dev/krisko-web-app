@@ -5,10 +5,19 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from app.api.deps import DBSession
+from app.core.config import get_settings
 from app.core.security import create_access_token
 from app.models.enums import UserRole
 from app.models.user import User
-from app.schemas.auth import LoginRequest, RefreshTokenRequest, SignupRequest, TokenResponse
+from app.schemas.auth import (
+    ForgotPasswordRequest,
+    LoginRequest,
+    MessageResponse,
+    RefreshTokenRequest,
+    ResetPasswordRequest,
+    SignupRequest,
+    TokenResponse,
+)
 from app.services.auth import SupabaseAuthService
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -92,3 +101,20 @@ async def refresh_token(payload: RefreshTokenRequest, db: DBSession) -> TokenRes
     access_token = create_access_token(subject=str(user.id), role=user.role.value)
     return TokenResponse(access_token=access_token, refresh_token=refreshed["refresh_token"])
 
+
+@router.post("/forgot-password", response_model=MessageResponse)
+async def forgot_password(payload: ForgotPasswordRequest) -> MessageResponse:
+    settings = get_settings()
+    redirect_url = f"{settings.frontend_url.rstrip('/')}/reset-password"
+    try:
+        await auth_service.reset_password_for_email(payload.email, redirect_url)
+    except Exception:
+        # Swallow errors to prevent email enumeration
+        pass
+    return MessageResponse(message="If an account with that email exists, a password reset link has been sent.")
+
+
+@router.post("/reset-password", response_model=MessageResponse)
+async def reset_password(payload: ResetPasswordRequest) -> MessageResponse:
+    await auth_service.update_user_password(payload.access_token, payload.new_password)
+    return MessageResponse(message="Password has been reset successfully.")

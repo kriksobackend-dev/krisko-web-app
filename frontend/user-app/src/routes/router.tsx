@@ -5,6 +5,7 @@ import { CartPage } from "../pages/CartPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
 import { CourseDetailsPage } from "../pages/CourseDetailsPage";
 import { CoursesPage } from "../pages/CoursesPage";
+import { ForgotPasswordPage } from "../pages/ForgotPasswordPage";
 import { HomePage } from "../pages/HomePage";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from "../pages/LoginPage";
@@ -14,6 +15,7 @@ import { OrdersPage } from "../pages/OrdersPage";
 import { OrderConfirmationPage } from "../pages/OrderConfirmationPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { ProductDetailsPage } from "../pages/ProductDetailsPage";
+import { ResetPasswordPage } from "../pages/ResetPasswordPage";
 import { SplashPage } from "../pages/SplashPage";
 import { SignupPage } from "../pages/SignupPage";
 import { useAuthStore } from "../store/authStore";
@@ -30,6 +32,8 @@ export const router = createBrowserRouter([
   { path: "/otp-verification", element: <OtpVerificationPage /> },
   { path: "/login", element: <LoginPage /> },
   { path: "/signup", element: <SignupPage /> },
+  { path: "/forgot-password", element: <ForgotPasswordPage /> },
+  { path: "/reset-password", element: <ResetPasswordPage /> },
 
   /* Authenticated app routes */
   {

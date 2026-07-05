@@ -116,6 +116,14 @@ export function LoginPage() {
                   {...register("password")}
                 />
                 {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
+                <div className="mt-1.5 text-right">
+                  <Link
+                    to="/forgot-password"
+                    className="text-xs font-medium text-krikso-700 hover:text-krikso-500 transition"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
               </div>
 
               {apiError && (

@@ -26,6 +26,8 @@ class Settings(BaseSettings):
     shiprocket_password: str
     shiprocket_base_url: str = "https://apiv2.shiprocket.in/v1/external"
 
+    frontend_url: str
+
     cors_origins: str = Field(default="http://localhost:5173,http://localhost:5174")
     access_token_expire_minutes: int = 60
 

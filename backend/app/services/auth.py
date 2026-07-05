@@ -52,3 +52,32 @@ class SupabaseAuthService:
             "refresh_token": response.session.refresh_token,
         }
 
+    async def reset_password_for_email(self, email: str, redirect_url: str) -> None:
+        """Trigger Supabase's built-in password reset email."""
+        try:
+            self.client.auth.reset_password_email(email, {"redirect_to": redirect_url})
+        except AuthApiError as exc:
+            # Silently ignore errors to avoid email enumeration
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    async def update_user_password(self, access_token: str, new_password: str) -> None:
+        """Use the recovery access token to identify the user, then update their password via admin API."""
+        try:
+            user_response = self.client.auth.get_user(access_token)
+        except AuthApiError as exc:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired reset token",
+            ) from exc
+        if not user_response or not user_response.user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired reset token",
+            )
+        try:
+            self.admin_client.auth.admin.update_user_by_id(
+                user_response.user.id, {"password": new_password}
+            )
+        except AuthApiError as exc:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
